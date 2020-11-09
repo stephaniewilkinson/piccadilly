@@ -8,12 +8,12 @@
     post: @post,
     return_to: Routes.post_index_path(@socket, :index) %>
 <% end %>
-<span><%= live_patch "New Post", to: Routes.post_index_path(@socket, :new) %></span>
+
+<%= live_patch "New Post", to: Routes.post_index_path(@socket, :new) %>
 
 <%= for post <- @posts do %>
-
   <div class="row" id="post-<%= post.id %>">
-    <div class="col s12 m7">
+    <div class="col s12 m6">
       <div class="card">
         <div class="card-image">
           <img src="<%= post.image_url %>">
