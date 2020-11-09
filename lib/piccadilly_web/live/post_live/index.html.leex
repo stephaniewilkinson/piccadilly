@@ -8,34 +8,27 @@
     post: @post,
     return_to: Routes.post_index_path(@socket, :index) %>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Caption</th>
-      <th>Image url</th>
-      <th>Likes count</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="posts">
-    <%= for post <- @posts do %>
-      <tr id="post-<%= post.id %>">
-        <td><%= post.username %></td>
-        <td><%= post.caption %></td>
-        <td><%= post.image_url %></td>
-        <td><%= post.likes_count %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.post_show_path(@socket, :show, post) %></span>
-          <span><%= live_patch "Edit", to: Routes.post_index_path(@socket, :edit, post) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: post.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <span><%= live_patch "New Post", to: Routes.post_index_path(@socket, :new) %></span>
+
+<%= for post <- @posts do %>
+
+  <div class="row" id="post-<%= post.id %>">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="<%= post.image_url %>">
+          <span class="card-title"><%= post.username %></span>
+        </div>
+        <div class="card-content">
+          <p><%= post.caption %></p>
+          <p><%= post.likes_count %></p>
+        </div>
+        <div class="card-action" id="post-<%= post.id %>">
+          <%= live_redirect "Show", to: Routes.post_show_path(@socket, :show, post) %>
+          <%= live_patch "Edit", to: Routes.post_index_path(@socket, :edit, post) %>
+          <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: post.id, data: [confirm: "Are you sure?"] %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
