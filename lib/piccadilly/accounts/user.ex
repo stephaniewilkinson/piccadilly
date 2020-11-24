@@ -8,9 +8,17 @@ defmodule Piccadilly.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    has_many :owned_groups, Piccadilly.Timeline.Group, foreign_key: :owner_id
     has_many :posts, Piccadilly.Timeline.Post
+    many_to_many :groups, Piccadilly.Timeline.Group, join_through: "groups_users", join_keys: [group_id: :id, user_id: :id]
 
     timestamps()
+  end
+
+  def changeset_update_groups(user, groups) do
+    user
+    |> cast(%{}, [:email, :password])
+    |> put_assoc(:groups, groups)
   end
 
   @doc """
