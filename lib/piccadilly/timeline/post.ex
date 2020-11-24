@@ -7,7 +7,7 @@ defmodule Piccadilly.Timeline.Post do
     field :image_url, :string
     field :likes_count, :integer
     field :username, :string
-    belongs_to :user, EctoAssoc.User
+    belongs_to :user, Piccadilly.Accounts.User
 
     timestamps()
   end

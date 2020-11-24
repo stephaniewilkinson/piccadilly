@@ -8,7 +8,7 @@ defmodule Piccadilly.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
-    has_many :posts, EctoAssoc.Post
+    has_many :posts, Piccadilly.Timeline.Post
 
     timestamps()
   end
