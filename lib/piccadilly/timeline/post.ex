@@ -8,7 +8,7 @@ defmodule Piccadilly.Timeline.Post do
     field :likes_count, :integer
     field :username, :string
     belongs_to :user, Piccadilly.Accounts.User
-    many_to_many :groups, Piccadilly.Timeline.Group, join_through: "groups_posts", join_keys: [group_id: :id, post_id: :id]
+    many_to_many :groups, Piccadilly.Timeline.Group, join_through: Piccadilly.Timeline.GroupPost
 
     timestamps()
   end

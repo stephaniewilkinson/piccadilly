@@ -7,8 +7,8 @@ defmodule Piccadilly.Timeline.Group do
     field :emoji, :string
     field :name, :string
     belongs_to :owner, Piccadilly.Accounts.User
-    many_to_many :users, Piccadilly.Accounts.User, join_through: "groups_users", join_keys: [group_id: :id, user_id: :id]
-    many_to_many :posts, Piccadilly.Timeline.Post, join_through: "groups_posts", join_keys: [group_id: :id, post_id: :id]
+    many_to_many :users, Piccadilly.Accounts.User, join_through: Piccadilly.Timeline.GroupUser
+    many_to_many :posts, Piccadilly.Timeline.Post, join_through: Piccadilly.Timeline.GroupPost
 
     timestamps()
   end

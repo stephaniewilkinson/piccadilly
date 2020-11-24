@@ -10,7 +10,7 @@ defmodule Piccadilly.Accounts.User do
     field :confirmed_at, :naive_datetime
     has_many :owned_groups, Piccadilly.Timeline.Group, foreign_key: :owner_id
     has_many :posts, Piccadilly.Timeline.Post
-    many_to_many :groups, Piccadilly.Timeline.Group, join_through: "groups_users", join_keys: [group_id: :id, user_id: :id]
+    many_to_many :groups, Piccadilly.Timeline.Group, join_through: Piccadilly.Timeline.GroupUser
 
     timestamps()
   end
