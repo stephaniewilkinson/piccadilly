@@ -13,12 +13,14 @@ defmodule Piccadilly.Timeline do
 
   ## Examples
 
-      iex> list_posts()
+      iex> list_posts(user)
       [%Post{}, ...]
 
   """
-  def list_posts do
-    Repo.all(Post)
+  def list_posts(user) do
+    user
+    |> Repo.preload(:posts)
+    |> Map.get(:posts)
   end
 
   @doc """
