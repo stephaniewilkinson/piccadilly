@@ -71,8 +71,8 @@ defmodule Piccadilly.TimelineTest do
   describe "groups" do
     alias Piccadilly.Timeline.Group
 
-    @valid_attrs %{description: "some description", emoji: "some emoji", name: "some name"}
-    @update_attrs %{description: "some updated description", emoji: "some updated emoji", name: "some updated name"}
+    @valid_attrs %{description: "some description", emoji: "⛵️", name: "some name"}
+    @update_attrs %{description: "some updated description", emoji: "🔥", name: "some updated name"}
     @invalid_attrs %{description: nil, emoji: nil, name: nil}
 
     def group_fixture(attrs \\ %{}) do
@@ -97,7 +97,7 @@ defmodule Piccadilly.TimelineTest do
     test "create_group/1 with valid data creates a group" do
       assert {:ok, %Group{} = group} = Timeline.create_group(@valid_attrs)
       assert group.description == "some description"
-      assert group.emoji == "some emoji"
+      assert group.emoji == "⛵️"
       assert group.name == "some name"
     end
 
@@ -109,7 +109,7 @@ defmodule Piccadilly.TimelineTest do
       group = group_fixture()
       assert {:ok, %Group{} = group} = Timeline.update_group(group, @update_attrs)
       assert group.description == "some updated description"
-      assert group.emoji == "some updated emoji"
+      assert group.emoji == "🔥"
       assert group.name == "some updated name"
     end
 

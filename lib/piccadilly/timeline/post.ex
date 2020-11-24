@@ -18,6 +18,5 @@ defmodule Piccadilly.Timeline.Post do
     post
     |> cast(attrs, [:username, :caption, :image_url, :likes_count])
     |> validate_required([:username, :caption, :image_url, :likes_count])
-    |> put_assoc(:groups, attrs[:groups])
   end
 end

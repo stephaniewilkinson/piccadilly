@@ -18,8 +18,6 @@ defmodule Piccadilly.Timeline.Group do
     group
     |> cast(attrs, [:name, :description, :emoji])
     |> validate_required([:name, :description, :emoji])
-    |> put_assoc(:posts, attrs[:posts])
-    |> put_assoc(:users, attrs[:users])
     |> unique_constraint(:unique_users, name: :groups_users_index)
     |> unique_constraint(:unique_posts, name: :groups_posts_index)
   end
