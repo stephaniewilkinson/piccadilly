@@ -14,10 +14,11 @@ defmodule Piccadilly.Timeline.Group do
   end
 
   @doc false
-  def changeset(group, attrs) do
+  def changeset(group, attrs \\ %{}) do
     group
-    |> cast(attrs, [:name, :description, :emoji])
+    |> cast(attrs, [:name, :description, :emoji, :owner_id])
     |> validate_required([:name, :description, :emoji])
+    |> assoc_constraint(:owner)
     |> unique_constraint(:unique_users, name: :groups_users_index)
     |> unique_constraint(:unique_posts, name: :groups_posts_index)
   end

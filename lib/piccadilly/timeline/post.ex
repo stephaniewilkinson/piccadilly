@@ -13,10 +13,20 @@ defmodule Piccadilly.Timeline.Post do
     timestamps()
   end
 
-  @doc false
-  def changeset(post, attrs) do
+  def changeset(post, attrs \\ %{}) do
     post
     |> cast(attrs, [:username, :caption, :image_url, :likes_count])
-    |> validate_required([:username, :caption, :image_url, :likes_count])
+    |> validate_required([:image_url, :likes_count])
+  end
+
+  def changeset_add_group(post, group) do
+    post
+    |> put_assoc(:groups, [group | post_groups(post)])
+  end
+
+  defp post_groups(post) do
+    post
+    |> Piccadilly.Repo.preload(:groups)
+    |> Map.get(:groups)
   end
 end
