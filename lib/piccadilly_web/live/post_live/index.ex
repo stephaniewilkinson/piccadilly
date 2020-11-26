@@ -6,8 +6,9 @@ defmodule PiccadillyWeb.PostLive.Index do
   alias Piccadilly.Timeline.Post
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :posts, list_posts(socket.assigns.user_id))}
+  def mount(_params, session, socket) do
+    socket = assign_user(session, socket)
+    {:ok, assign(socket, :posts, list_posts(socket.assigns.user.id))}
   end
 
   @impl true
@@ -38,11 +39,11 @@ defmodule PiccadillyWeb.PostLive.Index do
     post = Timeline.get_post!(id)
     {:ok, _} = Timeline.delete_post(post)
 
-    {:noreply, assign(socket, :posts, list_posts(socket.assigns.user_id))}
+    {:noreply, assign(socket, :posts, list_posts(socket.assigns.user.id))}
   end
 
   defp list_posts(user_id) do
     Accounts.get_user!(user_id)
-    |> Timeline.list_posts
+    |> Timeline.list_posts()
   end
 end
