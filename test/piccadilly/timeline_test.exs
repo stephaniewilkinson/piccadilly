@@ -1,7 +1,8 @@
 defmodule Piccadilly.TimelineTest do
   use Piccadilly.DataCase
 
-  alias Piccadilly.Accounts
+  import Piccadilly.AccountsFixtures
+
   alias Piccadilly.Timeline
 
   describe "posts" do
@@ -20,18 +21,11 @@ defmodule Piccadilly.TimelineTest do
       post
     end
 
-    def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Accounts.register_user()
-
-      user
-    end
-
-    test "list_posts/1 returns a user's posts" do
-      post = post_fixture()
+    test "list_posts/1 returns no posts when user not logged in" do
+      post_fixture()
       user = user_fixture(%{email: "dirtyfrank@hotmail.com", password: "asdfjkl;1234"})
-      assert Timeline.list_posts(user) == [post]
+
+      assert Timeline.list_posts(user) == []
     end
 
     test "get_post!/1 returns the post with given id" do
@@ -96,7 +90,7 @@ defmodule Piccadilly.TimelineTest do
 
     test "list_groups/0 returns all groups" do
       group = group_fixture()
-      assert Timeline.list_groups() == [group]
+      assert Enum.member?(Timeline.list_groups(), group)
     end
 
     test "get_group!/1 returns the group with given id" do
