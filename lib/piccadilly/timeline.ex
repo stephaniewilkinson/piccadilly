@@ -19,8 +19,13 @@ defmodule Piccadilly.Timeline do
   """
   def list_posts(user) do
     user
-    |> Repo.preload(:posts)
-    |> Map.get(:posts)
+    |> Repo.preload(:groups)
+    |> Map.get(:groups)
+    |> Enum.flat_map(fn group ->
+      group
+      |> Repo.preload(:posts)
+      |> Map.get(:posts)
+    end)
   end
 
   @doc """
