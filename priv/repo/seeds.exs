@@ -13,14 +13,12 @@
 alias Piccadilly.{Repo, Accounts.User}
 alias Piccadilly.Timeline.{Group, Post}
 
-username =
-  ?a..?z
-  |> Enum.take_random(10)
-  |> List.to_string()
+email = "obama@whitehouse.gov"
+password = "sexymichelle"
 
 user =
-  %User{email: "#{username}@whitehouse.gov"}
-  |> User.registration_changeset(%{password: "sekretsauceseriously42", hashed_password: "x"})
+  %User{email: email}
+  |> User.registration_changeset(%{password: password})
   |> Repo.insert!()
 
 group =
@@ -29,7 +27,7 @@ group =
   |> Repo.insert!()
 
 post =
-  %Post{user: user, image_url: "Meow", likes_count: 5}
+  %Post{user: user, image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Michelle_Obama_2013_official_portrait.jpg/1280px-Michelle_Obama_2013_official_portrait.jpg", likes_count: 420}
   |> Post.changeset()
   |> Repo.insert!()
 
