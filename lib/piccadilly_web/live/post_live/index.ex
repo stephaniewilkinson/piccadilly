@@ -2,13 +2,24 @@ defmodule PiccadillyWeb.PostLive.Index do
   use PiccadillyWeb, :live_view
 
   alias Piccadilly.Accounts
+  alias Piccadilly.Accounts.User
   alias Piccadilly.Timeline
   alias Piccadilly.Timeline.Post
 
   @impl true
   def mount(_params, session, socket) do
     socket = assign_user(session, socket)
-    {:ok, assign(socket, :posts, list_posts(socket.assigns.user.id))}
+
+    case socket.assigns.user do
+      %User{} ->
+        {:ok, assign(socket, :posts, list_posts(socket.assigns.user.id))}
+
+      _not_logged_in ->
+        {:ok,
+         socket
+         |> put_flash(:error, "Please log in.")
+         |> redirect(to: Routes.user_registration_path(socket, :new))}
+    end
   end
 
   @impl true

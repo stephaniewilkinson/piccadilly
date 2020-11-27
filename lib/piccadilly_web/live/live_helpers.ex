@@ -1,23 +1,9 @@
 defmodule PiccadillyWeb.LiveHelpers do
-  import Phoenix.LiveView, only: [assign_new: 3, put_flash: 3, redirect: 2]
+  import Phoenix.LiveView, only: [assign_new: 3]
   import Phoenix.LiveView.Helpers
-  alias Piccadilly.{Accounts, Accounts.User}
-  alias PiccadillyWeb.Router.Helpers, as: Routes
 
   def assign_user(session, socket) do
     assign_new(socket, :user, user_fn(session))
-    ## TODO: Fix the broken flash and redirect.
-    # socket = assign_new(socket, :user, user_fn(session))
-
-    # case socket.assigns.user do
-    #   %User{} ->
-    #     socket
-
-    #   _not_logged_in ->
-    #     socket
-    #     |> put_flash(:error, "Please log in.")
-    #     |> redirect(to: Routes.user_registration_path(socket, :new))
-    # end
   end
 
   defp user_fn(session) do
@@ -30,7 +16,7 @@ defmodule PiccadillyWeb.LiveHelpers do
   defp get_user_by_session_token(nil), do: nil
 
   defp get_user_by_session_token(user_token) do
-    Accounts.get_user_by_session_token(user_token)
+    Piccadilly.Accounts.get_user_by_session_token(user_token)
   end
 
   @doc """
