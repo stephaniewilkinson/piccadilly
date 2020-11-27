@@ -16,9 +16,10 @@ defmodule PiccadillyWeb.PostLive.Index do
 
       _not_logged_in ->
         {:ok,
-         socket
+         assign(socket, :posts, [])
          |> put_flash(:error, "Please log in.")
-         |> redirect(to: Routes.user_registration_path(socket, :new))}
+        #  |> redirect(to: Routes.user_registration_path(socket, :new))
+        }
     end
   end
 
