@@ -1,7 +1,7 @@
 defmodule Piccadilly.TimelineTest do
   use Piccadilly.DataCase
 
-  alias Piccadilly.Account
+  alias Piccadilly.Accounts
   alias Piccadilly.Timeline
 
   describe "posts" do
@@ -23,14 +23,14 @@ defmodule Piccadilly.TimelineTest do
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
         attrs
-        |> Account.create_user()
+        |> Accounts.register_user()
 
       user
     end
 
     test "list_posts/1 returns a user's posts" do
       post = post_fixture()
-      user = user_fixture()
+      user = user_fixture(%{email: "dirtyfrank@hotmail.com", password: "asdfjkl;1234"})
       assert Timeline.list_posts(user) == [post]
     end
 
