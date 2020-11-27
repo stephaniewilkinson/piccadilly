@@ -19,8 +19,9 @@ defmodule Piccadilly.Timeline.Post do
     |> validate_required([:image_url, :likes_count])
   end
 
-  def changeset_add_group(post, group) do
+  def changeset_add_group(post, group, attrs \\ %{}) do
     post
+    |> cast(attrs, [:username, :caption, :image_url, :likes_count])
     |> put_assoc(:groups, [group | post_groups(post)])
   end
 
