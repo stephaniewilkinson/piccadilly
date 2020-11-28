@@ -8,29 +8,8 @@ defmodule Piccadilly.Accounts.User do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
-    has_many :owned_groups, Piccadilly.Timeline.Group, foreign_key: :owner_id
-    has_many :posts, Piccadilly.Timeline.Post
-    many_to_many :groups, Piccadilly.Timeline.Group, join_through: Piccadilly.Timeline.GroupUser
 
     timestamps()
-  end
-
-  def changeset_add_group(user, group) do
-    user
-    |> cast(%{}, [:email, :password])
-    |> put_assoc(:groups, [group | user_groups(user)])
-  end
-
-  defp user_groups(user) do
-    user
-    |> Piccadilly.Repo.preload(:groups)
-    |> Map.get(:groups)
-  end
-
-  def changeset_update_groups(user, groups) do
-    user
-    |> cast(%{}, [:email, :password])
-    |> put_assoc(:groups, groups)
   end
 
   @doc """
@@ -41,7 +20,7 @@ defmodule Piccadilly.Accounts.User do
   could lead to unpredictable or insecure behaviour. Long passwords may
   also be very expensive to hash for certain algorithms.
   """
-  def registration_changeset(user, attrs \\ %{}) do
+  def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:email, :password])
     |> validate_email()
