@@ -1,5 +1,23 @@
 defmodule PiccadillyWeb.LiveHelpers do
+  import Phoenix.LiveView, only: [assign_new: 3]
   import Phoenix.LiveView.Helpers
+
+  def assign_user(session, socket) do
+    assign_new(socket, :user, user_fn(session))
+  end
+
+  defp user_fn(session) do
+    fn ->
+      session["user_token"]
+      |> get_user_by_session_token()
+    end
+  end
+
+  defp get_user_by_session_token(nil), do: nil
+
+  defp get_user_by_session_token(user_token) do
+    Piccadilly.Accounts.get_user_by_session_token(user_token)
+  end
 
   @doc """
   Renders a component inside the `PiccadillyWeb.ModalComponent` component.
