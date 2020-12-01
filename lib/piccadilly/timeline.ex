@@ -18,14 +18,13 @@ defmodule Piccadilly.Timeline do
 
   """
   def list_posts(user) do
+    # TODO: Refactor to a SQL join.
     user
-    |> Repo.preload(:groups)
+    |> Repo.preload(groups: :posts)
     |> Map.get(:groups)
-    |> Enum.flat_map(fn group ->
-      group
-      |> Repo.preload(:posts)
-      |> Map.get(:posts)
-    end)
+    |> Enum.flat_map(&(&1.posts))
+    |> Enum.sort_by(&(&1.inserted_at), :desc)
+    |> Enum.take(10)
   end
 
   @doc """
