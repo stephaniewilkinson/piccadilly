@@ -8,9 +8,9 @@ defmodule Piccadilly.TimelineTest do
   describe "posts" do
     alias Piccadilly.Timeline.Post
 
-    @valid_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42, username: "some username"}
-    @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43, username: "some updated username"}
-    @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil, username: nil}
+    @valid_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42}
+    @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43}
+    @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil}
 
     def post_fixture(attrs \\ %{}) do
       {:ok, post} =
@@ -38,7 +38,6 @@ defmodule Piccadilly.TimelineTest do
       assert post.caption == "some caption"
       assert post.image_url == "some image_url"
       assert post.likes_count == 42
-      assert post.username == "some username"
     end
 
     test "create_post/1 with invalid data returns error changeset" do
@@ -51,7 +50,6 @@ defmodule Piccadilly.TimelineTest do
       assert post.caption == "some updated caption"
       assert post.image_url == "some updated image_url"
       assert post.likes_count == 43
-      assert post.username == "some updated username"
     end
 
     test "update_post/2 with invalid data returns error changeset" do

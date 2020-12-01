@@ -6,7 +6,6 @@ defmodule Piccadilly.Timeline.Post do
     field :caption, :string
     field :image_url, :string
     field :likes_count, :integer
-    field :username, :string
     belongs_to :user, Piccadilly.Accounts.User
     many_to_many :groups, Piccadilly.Timeline.Group, join_through: Piccadilly.Timeline.GroupPost
 
@@ -15,13 +14,13 @@ defmodule Piccadilly.Timeline.Post do
 
   def changeset(post, attrs \\ %{}) do
     post
-    |> cast(attrs, [:username, :caption, :image_url, :likes_count])
+    |> cast(attrs, [:caption, :image_url, :likes_count])
     |> validate_required([:image_url, :likes_count])
   end
 
   def changeset_add_group(post, group, attrs \\ %{}) do
     post
-    |> cast(attrs, [:username, :caption, :image_url, :likes_count])
+    |> cast(attrs, [:caption, :image_url, :likes_count])
     |> put_assoc(:groups, [group | post_groups(post)])
   end
 

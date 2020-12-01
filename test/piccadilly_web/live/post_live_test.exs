@@ -5,9 +5,9 @@ defmodule PiccadillyWeb.PostLiveTest do
 
   alias Piccadilly.Timeline
 
-  @create_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42, username: "some username"}
-  @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43, username: "some updated username"}
-  @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil, username: nil}
+  @create_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42}
+  @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43}
+  @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil}
 
   defp fixture(:post) do
     {:ok, post} = Timeline.create_post(@create_attrs)
