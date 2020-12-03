@@ -6,7 +6,7 @@ defmodule Piccadilly.Timeline do
   import Ecto.Query, warn: false
   alias Piccadilly.Repo
 
-  alias Piccadilly.Timeline.Post
+  alias Piccadilly.Timeline.{Post, Group}
 
   @doc """
   Returns the list of posts.
@@ -107,8 +107,6 @@ defmodule Piccadilly.Timeline do
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
   end
-
-  alias Piccadilly.Timeline.Group
 
   @doc """
   Returns the list of groups.

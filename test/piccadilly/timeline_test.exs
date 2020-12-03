@@ -22,7 +22,6 @@ defmodule Piccadilly.TimelineTest do
     end
 
     test "list_posts/1 returns no posts when user not logged in" do
-      post_fixture()
       user = user_fixture(%{email: "dirtyfrank@hotmail.com", password: "asdfjkl;1234"})
 
       assert Timeline.list_posts(user) == []
