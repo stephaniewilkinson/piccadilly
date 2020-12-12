@@ -2,6 +2,7 @@ defmodule PiccadillyWeb.PostLive.Index do
   use PiccadillyWeb, :live_view
 
   alias Piccadilly.Accounts
+  alias Piccadilly.Repo
   alias Piccadilly.Accounts.User
   alias Piccadilly.Timeline
   alias Piccadilly.Timeline.Post
@@ -56,6 +57,7 @@ defmodule PiccadillyWeb.PostLive.Index do
 
   defp list_posts(user_id) do
     Accounts.get_user!(user_id)
+    |> Repo.preload(:groups)
     |> Timeline.list_posts()
   end
 end
