@@ -5,7 +5,7 @@ defmodule Piccadilly.Timeline do
 
   import Ecto.Query, warn: false
   alias Piccadilly.Repo
-
+  alias Piccadilly.Accounts.User
   alias Piccadilly.Timeline.{Post, Group}
 
   @doc """
