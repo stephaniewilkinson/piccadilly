@@ -56,9 +56,17 @@ defmodule Piccadilly.Timeline do
 
   """
   def create_post(attrs \\ %{}) do
-    %Post{}
-    |> Post.changeset(attrs)
-    |> Repo.insert()
+    group = Group
+    |> Repo.get(String.to_integer(attrs["group_id"]))
+    |> Repo.preload(:posts)
+    |> Repo.preload(:users)
+    |> Repo.preload(:owner)
+
+    group
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:posts, [%Post{likes_count: 2, caption: "stuff", image_url: "otherstuff"} | group.posts])
+
+    # => (Ecto.ConstraintError) constraint error when attempting to insert struct:  * groups_pkey (unique_constraint)
   end
 
   @doc """

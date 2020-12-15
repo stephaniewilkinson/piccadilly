@@ -18,9 +18,9 @@
   <%= number_input f, :likes_count %>
   <%= error_tag f, :likes_count %>
 
-  <%= inputs_for f, :groups, fn g -> %>
-    <%= text_input g, :name %>
-  <% end %>
+  <%= label f, :group_id %>
+  <%= number_input f, :group_id %>
+  <%= error_tag f, :group_id %>
 
   <%= submit "Save", phx_disable_with: "Saving..." %>
 </form>
