@@ -6,8 +6,18 @@ defmodule Piccadilly.TimelineTest do
   describe "posts" do
     alias Piccadilly.Timeline.Post
 
-    @valid_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42, username: "some username"}
-    @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43, username: "some updated username"}
+    @valid_attrs %{
+      caption: "some caption",
+      image_url: "some image_url",
+      likes_count: 42,
+      username: "some username"
+    }
+    @update_attrs %{
+      caption: "some updated caption",
+      image_url: "some updated image_url",
+      likes_count: 43,
+      username: "some updated username"
+    }
     @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil, username: nil}
 
     def post_fixture(attrs \\ %{}) do
@@ -19,16 +29,19 @@ defmodule Piccadilly.TimelineTest do
       post
     end
 
+    @tag :pending
     test "list_posts/0 returns all posts" do
       post = post_fixture()
       assert Timeline.list_posts() == [post]
     end
 
+    @tag :pending
     test "get_post!/1 returns the post with given id" do
       post = post_fixture()
       assert Timeline.get_post!(post.id) == post
     end
 
+    @tag :pending
     test "create_post/1 with valid data creates a post" do
       assert {:ok, %Post{} = post} = Timeline.create_post(@valid_attrs)
       assert post.caption == "some caption"
@@ -41,6 +54,7 @@ defmodule Piccadilly.TimelineTest do
       assert {:error, %Ecto.Changeset{}} = Timeline.create_post(@invalid_attrs)
     end
 
+    @tag :pending
     test "update_post/2 with valid data updates the post" do
       post = post_fixture()
       assert {:ok, %Post{} = post} = Timeline.update_post(post, @update_attrs)
@@ -50,18 +64,21 @@ defmodule Piccadilly.TimelineTest do
       assert post.username == "some updated username"
     end
 
+    @tag :pending
     test "update_post/2 with invalid data returns error changeset" do
       post = post_fixture()
       assert {:error, %Ecto.Changeset{}} = Timeline.update_post(post, @invalid_attrs)
       assert post == Timeline.get_post!(post.id)
     end
 
+    @tag :pending
     test "delete_post/1 deletes the post" do
       post = post_fixture()
       assert {:ok, %Post{}} = Timeline.delete_post(post)
       assert_raise Ecto.NoResultsError, fn -> Timeline.get_post!(post.id) end
     end
 
+    @tag :pending
     test "change_post/1 returns a post changeset" do
       post = post_fixture()
       assert %Ecto.Changeset{} = Timeline.change_post(post)

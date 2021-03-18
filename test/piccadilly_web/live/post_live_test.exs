@@ -5,8 +5,18 @@ defmodule PiccadillyWeb.PostLiveTest do
 
   alias Piccadilly.Timeline
 
-  @create_attrs %{caption: "some caption", image_url: "some image_url", likes_count: 42, username: "some username"}
-  @update_attrs %{caption: "some updated caption", image_url: "some updated image_url", likes_count: 43, username: "some updated username"}
+  @create_attrs %{
+    caption: "some caption",
+    image_url: "some image_url",
+    likes_count: 42,
+    username: "some username"
+  }
+  @update_attrs %{
+    caption: "some updated caption",
+    image_url: "some updated image_url",
+    likes_count: 43,
+    username: "some updated username"
+  }
   @invalid_attrs %{caption: nil, image_url: nil, likes_count: nil, username: nil}
 
   defp fixture(:post) do
@@ -22,6 +32,7 @@ defmodule PiccadillyWeb.PostLiveTest do
   describe "Index" do
     setup [:create_post]
 
+    @tag :pending
     test "lists all posts", %{conn: conn, post: post} do
       {:ok, _index_live, html} = live(conn, Routes.post_index_path(conn, :index))
 
@@ -29,6 +40,7 @@ defmodule PiccadillyWeb.PostLiveTest do
       assert html =~ post.caption
     end
 
+    @tag :pending
     test "saves new post", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.post_index_path(conn, :index))
 
@@ -51,6 +63,7 @@ defmodule PiccadillyWeb.PostLiveTest do
       assert html =~ "some caption"
     end
 
+    @tag :pending
     test "updates post in listing", %{conn: conn, post: post} do
       {:ok, index_live, _html} = live(conn, Routes.post_index_path(conn, :index))
 
@@ -73,6 +86,7 @@ defmodule PiccadillyWeb.PostLiveTest do
       assert html =~ "some updated caption"
     end
 
+    @tag :pending
     test "deletes post in listing", %{conn: conn, post: post} do
       {:ok, index_live, _html} = live(conn, Routes.post_index_path(conn, :index))
 
@@ -84,6 +98,7 @@ defmodule PiccadillyWeb.PostLiveTest do
   describe "Show" do
     setup [:create_post]
 
+    @tag :pending
     test "displays post", %{conn: conn, post: post} do
       {:ok, _show_live, html} = live(conn, Routes.post_show_path(conn, :show, post))
 
@@ -91,6 +106,7 @@ defmodule PiccadillyWeb.PostLiveTest do
       assert html =~ post.caption
     end
 
+    @tag :pending
     test "updates post within modal", %{conn: conn, post: post} do
       {:ok, show_live, _html} = live(conn, Routes.post_show_path(conn, :show, post))
 
